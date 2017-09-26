@@ -1,5 +1,5 @@
 //http://blog.csdn.net/code4101/article/details/23020525
-#include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 namespace HighPrecision {
