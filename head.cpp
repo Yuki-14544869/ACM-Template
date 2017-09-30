@@ -42,8 +42,7 @@ namespace IO {
         if(flag) t = -t;
         return true;
     }
-}
-using namespace IO;
+}using namespace IO;
 void filein() {
 #ifndef ONLINE_JUDGE
     freopen("in.txt", "r", stdin);
