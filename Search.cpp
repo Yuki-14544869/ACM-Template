@@ -76,28 +76,60 @@ namespace Search2D {
         return ;
     }
 }using namespace Search2D;
-point start;
 
-int main() {
-    //freopen("in.txt", "r", stdin);
-    while(cin >> N >> K) {
-        if(N==-1 && K==-1)
-            return 0;
-        for(int i=0; i<N; ++i) {
-            cin >> maps[i];
+namespace Search3D {
+    struct point {
+        int x, y, z;
+
+        point(){}
+        point(int _x, int _y, int _z):x(_x),y(_y),z(_z) {}
+
+        friend ostream &operator<<(ostream &os, const point &a) {
+            os << "(" << a.x << ", " << a.y << ", " << a.z << ")";
+            return os;
         }
+        point operator+(const point &a) {
+            return point(x+a.x, y+a.y, z+a.z);
+        }
+        point operator-(const point &a) {
+            return point(x-a.x, y-a.y, z-a.z);
+        }
+        point operator+=(const point &a) {
+            *this = *this + a;
+            return *this;
+        }
+    };
 
-        DFS(0, 0);
-        cout << ans << endl;
+    point dis[6] = {{-1, 0, 0}, {0, -1, 0}, {0, 0, -1}, {1, 0, 0}, {0, 1, 0}, {0, 0, 1}};
+    point start, terminal;
 
-    //   for(int i=0; i<N; ++i) {
-    //       cout << maps[i] << endl;
-    //   }
-    //    cout << endl;
-
-        memset(maps, 0, sizeof maps);
-        memset(flag, false, sizeof flag);
-        ans = 0;
+    int dp[35][35][35];
+    bool check(point x){
+        if(x.x<0 || x.x>=R || x.y<0 || x.y>=C || x.z<0 || x.z>=L)
+            return false;
+        return maps[x.x][x.y][x.z] != '#';
     }
-    return 0;
-}
+    void BFS(point start, point terminal) {
+        mm(dp, 0);
+        queue<point> q;
+        q.push(start);
+        maps[start.x][start.y][start.z] = '#';
+
+        while(!q.empty()) {
+            point now = q.front();
+            q.pop();
+            if(now.x==terminal.x && now.y==terminal.y && now.z==terminal.z)
+                return;
+
+            for(int i=0; i<6; ++i) {
+                point tmp = now;
+                tmp += dis[i];
+                if(!check(tmp))
+                    continue;
+                maps[tmp.x][tmp.y][tmp.z] = '#';
+                dp[tmp.x][tmp.y][tmp.z] = dp[now.x][now.y][now.z] + 1;
+                q.push(tmp);
+            }
+        }
+    }
+}using namespace Search3D;
