@@ -8,7 +8,7 @@ int ans = 0;
 int N, K;
 char maps[10][10] = {0};
 
-namespace Search {
+namespace Search2D {
     struct point {
         int x, y;
 
@@ -75,7 +75,7 @@ namespace Search {
         DFS(x+1, k);
         return ;
     }
-}using namespace Search;
+}using namespace Search2D;
 point start;
 
 int main() {
