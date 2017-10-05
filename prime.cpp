@@ -8,19 +8,19 @@ using namespace std;
 
 
 namespace Prime {
-    const int M = 99999999;
+    const int M = 9999;
     bool visit[M];
     int prime[M];
 
-    void table() {
+    void table(const int x) {
         // memset(visit,true,sizeof(visit));
         // memset(prime, 0, sizeof(prime));
-        for(int i=0; i<M; ++i) {
+        for(int i=0; i<=x; ++i) {
             visit[i] = true;
             prime[i] = 0;
         }
         int num = 0;
-        for (int i = 2; i <= M; ++i) {
+        for (int i = 2; i <= x; ++i) {
             if (visit[i] == true) {
                 num++;
                 prime[num] = i;
@@ -33,7 +33,7 @@ namespace Prime {
     }
 
     void print_prime() {
-        table();
+        table(M);
         int x;
         int tmp = 0;
         int cnt = 0;
@@ -47,22 +47,18 @@ namespace Prime {
         cout << "total : " << cnt << endl;
     }
 
-    bool judge_prime(const int x) {
-        for(int i=1; i<x; ++i)
-            if(prime[i]==x)
-                return true;
-        return false;
+    void judge_prime(const int x) {
+        if(visit[x])
+            cout << "true" << endl;
+        else cout << "no" << endl;
     }
 }using namespace Prime;
 
-
 int main()
 {
-    print_prime();
+    table(999);
     int x;
     while(cin >> x)
-        if(judge_prime(x))
-            cout << "yes" << endl;
-        else cout << "no" << endl;
+        judge_prime(x);
     return 0;
 }
