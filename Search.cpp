@@ -44,7 +44,7 @@ namespace Search2D {
         q.push(start);
 
         while(!q.empty()) {
-            point now = q.front();
+            const point now = q.front();
             q.pop();
             ans++;
 
@@ -116,7 +116,7 @@ namespace Search3D {
         maps[start.x][start.y][start.z] = '#';
 
         while(!q.empty()) {
-            point now = q.front();
+            const oint now = q.front();
             q.pop();
             if(now.x==terminal.x && now.y==terminal.y && now.z==terminal.z)
                 return;
