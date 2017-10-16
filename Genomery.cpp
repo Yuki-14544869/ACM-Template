@@ -1,7 +1,15 @@
 #include <bits/stdc++.h>
 using namespace std;
 namespace Genomery2D {
-    const double eps = 1e-6;
+    const double eps = 1e-8;
+    int sgn(double x) {
+        if(fabs(x) < eps)
+            return 0;
+        if(x < 0)
+            return -1;
+        return 1;
+    }
+
     struct Point {
         double x, y;
         Point(){}
@@ -31,6 +39,11 @@ namespace Genomery2D {
             os << "(" << a.x << ", " << a.y << ")";
             return os;
         }
+        double dist(Point &b) {                        //两点间距
+            Point temp = *this-b;
+            return sqrt(temp*temp);
+        }
+
     };
 
     struct Vector {
@@ -58,6 +71,9 @@ namespace Genomery2D {
             Vector tmpa(this->a, this->b);                   //大于0顺时针，小于0逆时针，等于0在线段上
             Vector tmpb(this->a, p);                         //两个向量分别为line::a->line::b & line::a->p
             return tmpb ^ tmpa;
+        }
+        bool JudgeCross(Line l) {                           //判断this的线段所在的直线是否与线段l相交
+            return sgn((*this).Cross(l.a)) * sgn((*this).Cross(l.b)) <= 0;
         }
     };
 }using namespace Genomery2D;
